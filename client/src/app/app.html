@@ -1,0 +1,68 @@
+<style>
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  header h1 {
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  #error {
+    color: #ff0000;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+
+<main class="main">
+  <div class="content">
+    <div class="todo-container">
+      <header>
+        <h1>My To Do List</h1>
+        @if(errorMessage()) {
+        <p id="error" role="error">{{errorMessage()}}</p>
+        }
+        <div class="input-section">
+          <input type="text" id="todo-input" placeholder="Add a new to-do item" [(ngModel)]="newTodoItem"
+            [disabled]="isAdding() || isLoading() || loadFailed()">
+          <button id="add-btn" (click)="addTodoItem(newTodoItem)"
+            [disabled]="isAdding() || isLoading() || loadFailed()">{{ isAdding() ? 'Adding...' : 'Add Item' }}</button>
+        </div>
+      </header>
+
+      <ul class="todo-list">
+        @for (todoItem of todoItems(); track todoItem.id) {
+        <!-- Active to-do item -->
+        <li class="todo-item">
+          <div class="task-content">
+            <label>{{ todoItem.itemName }}</label>
+          </div>
+          <button class="delete-btn" (click)="deleteTodoItem(todoItem.id)">&times;</button>
+        </li>
+        }
+        @empty {
+        <!-- No to-do items -->
+        <li class="todo-item">
+          <div class="task-content">
+            <label>No to-do items found.</label>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,17 @@
+# Angular dependencies, cache, and build output
+client/node_modules/
+client/.angular/
+client/dist/
+client/out-tsc/
+
+# ASP.NET build and test output
+**/bin/
+**/obj/
+**/TestResults/
+
+# Logs
+*.log
+
+# macOS files
+.DS_Store
+._*
